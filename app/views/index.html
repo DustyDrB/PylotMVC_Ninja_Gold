@@ -1,8 +1,56 @@
 <html>
-  <head>
-    <link rel="stylesheet" href="/static/css/styles.css" type="text/css">
-  </head>
-  <body>
-    The best place to start is the "WelcomeController.py" file in app/controllers.
-  </body>
+<head>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='styles.css')}}">
+	<title>Ninja Gold</title>
+</head>
+<body>
+	<div id="container">
+		<div id="gold-count">
+			<h3>Your Gold: {{session['total_gold']}}</h3>
+		</div>
+		<div id="cards">
+			<div class="game-card">
+				<h2>Farm</h2>
+				<p>(earns 10-20 golds)</p>
+				<form action="/process_money" method="post">
+                    <input type="hidden" name="location" value="farm"  />
+                    <input type="submit" class="btn amber lighten-2 blue-grey-text" value='Search!'>
+                </form>
+			</div>
+			<div class="game-card">
+				<h2>Cave</h2>
+				<p>(earns 5-10 golds)</p>
+				<form action="/process_money" method="post">
+                    <input type="hidden" name="location" value="cave"  />
+                    <input type="submit" class="btn amber lighten-2 blue-grey-text" value='Search!'>
+                </form>
+			</div>
+			<div class="game-card">
+				<h2>House</h2>
+				<p>(earns 2-5 golds)</p>
+				<form action="/process_money" method="post">
+                    <input type="hidden" name="location" value="house"  />
+                    <input type="submit" class="btn amber lighten-2 blue-grey-text" value='Search!'>
+                </form>
+			</div>
+			<div class="game-card">
+				<h2>Casino</h2>
+				<p>(earns/takes 0-50 golds)</p>
+				<form action="/process_money" method="post">
+                    <input type="hidden" name="location" value="casino"  />
+                    <input type="submit" class="btn amber lighten-2 blue-grey-text" value='Search!'>
+                </form>
+			</div>
+		</div>
+		<div id="activity-feed">
+			<p>Activities: </p>
+			<div class="feed-output card-panel yellow lighten-4">
+				{% for incident in session['activity-feed'] %}
+                    <p class="{{incident['text_color']}}-text">{{ incident['description'] }}</p>
+                {% endfor %}
+			</div>
+		</div>
+	</div>
+</body>
 </html>
